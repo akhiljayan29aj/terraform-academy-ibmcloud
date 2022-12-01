@@ -25,8 +25,8 @@ variable "user_list" {
 
   default = [
     {
-      name   = "user-1"
-      email  = "user1@domain.com"
+      name   = "karan"
+      email  = "karan.kumar6@ibm.com"
       apikey = "apikey-1"
     },
   ]
