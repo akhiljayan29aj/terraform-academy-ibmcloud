@@ -40,7 +40,7 @@ variable "user_list" {
 variable "decomission_timer" {
   description = "Time length to de-provision the resource after the creation."
   type        = string
-  default     = "8m"
+  default     = "3m"
 }
 
 # Blockchain
