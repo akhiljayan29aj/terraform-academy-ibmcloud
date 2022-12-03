@@ -6,9 +6,6 @@ import argparse
 import multiprocessing
 import base64
 
-from ibm_cloud_sdk_core.authenticators.iam_authenticator import IAMAuthenticator
-from ibm_secrets_manager_sdk.secrets_manager_v1 import *
-
 
 TOKEN_URL = "https://iam.cloud.ibm.com/identity/token"
 SCHEMATCIS_API = "https://us.schematics.cloud.ibm.com"
@@ -96,27 +93,29 @@ def base64_decode_message(base64_message):
     
     return message  
 
-def notify_slack_channel(ibmcloud_apikey, slack_message):
+def notify_slack_channel(access_token, slack_message):
     # Secrets Manager instance created in POC account with kv secret created for storing the slack webhook url
-    SERVICE_URL = "https://d6821ca2-34fb-41de-baae-960ac8bab35b.us-east.secrets-manager.appdomain.cloud"
+    SM_SERVICE_URL = "https://d6821ca2-34fb-41de-baae-960ac8bab35b.us-east.secrets-manager.appdomain.cloud"
     KV_SECRET_ID = 'ef218084-7c4e-7443-1079-f614d9828719'
-    
-    secretsManager = SecretsManagerV1(
-    authenticator=IAMAuthenticator(apikey=ibmcloud_apikey)
-    )
-    secretsManager.set_service_url(SERVICE_URL)
-    response = secretsManager.get_secret(
-    'kv',
-    KV_SECRET_ID)
-    slack_webhook_url = response.result['resources'][0]['secret_data']['payload']['slack_webhook_url']
 
-    headers = { 'Content-Type': 'application/json'}
-    data = { "text" : slack_message}
-    response = requests.post(slack_webhook_url, headers=headers, json=data)
-    print("Posted a message to Slack Webhook URL. Response Status Code is: ", response.status_code)
+    sm_headers = { 'Content-Type': 'application/json', 'Authorization': access_token }
+    sm_url = SM_SERVICE_URL+'/api/v1/secrets/kv/{}'.format(KV_SECRET_ID)
+    sm_response = requests.get(sm_url, headers=sm_headers)
+    print("Status Code for SM : ", sm_response.status_code)
+    if sm_response.status_code not in ERR_STATUS_CODE:
+        data = sm_response.json()
+        json_object = convert_dict_to_json(data)
+        if type(json_object) != NONE_TYPE:
+            slack_webhook_url = json_object['resources'][0]['secret_data']['payload']['slack_webhook_url']
+            slack_headers = { 'Content-Type': 'application/json'}
+            slack_data = {"text" : slack_message}
+            slack_response = requests.post(slack_webhook_url, headers=slack_headers, json=slack_data)
+            print("Posted a message to Slack Webhook URL. Response Status Code is: ", slack_response.status_code)
+        else:
+            print("Secrets Manager failed to get secret for kv "+ KV_SECRET_ID +".")
 
 
-def task(access_token, refresh_token, workspace_id, workspace_name, job_index, apikey):
+def task(access_token, refresh_token, workspace_id, workspace_name, job_index):
     job_file = "/tmp/.schematics/job_info_" + str(job_index) + ".json"
     # Get schematics workspace details
     while True:
@@ -159,7 +158,7 @@ def task(access_token, refresh_token, workspace_id, workspace_name, job_index, a
                         json.dump(job_data, outfile)
                     # send notification to slack channel
                     slack_message = "Schematics apply plan completed successfully for workspace --> " + workspace_name
-                    notify_slack_channel(apikey, slack_message)
+                    notify_slack_channel(access_token, slack_message)
                     return {"info" : "Schematics apply plan completed successfully."}
                 elif status == "job_failed":
                     print("Schematics Apply Plan Failed on workspace " + workspace_name +". Check workspace apply logs for more details on failure.")
@@ -167,7 +166,7 @@ def task(access_token, refresh_token, workspace_id, workspace_name, job_index, a
                         json.dump(job_data, outfile)
                     # send notification to slack channel
                     slack_message = "Schematics apply plan failed for workspace --> " + workspace_name
-                    notify_slack_channel(apikey, slack_message)
+                    notify_slack_channel(access_token, slack_message)
                     return {"error" : "Schematics Apply Plan Failed on workspace " + workspace_name + "."}     
                         
 def main():
@@ -203,7 +202,7 @@ def main():
             
 
         time.sleep(2)
-        p = multiprocessing.Process(target = task, args=(access_token, refresh_token, workspace_id, workspace_name, i, apikey))
+        p = multiprocessing.Process(target = task, args=(access_token, refresh_token, workspace_id, workspace_name, i))
         p.start()
         processes.append(p)
         i+=1
