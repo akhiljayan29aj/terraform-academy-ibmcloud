@@ -6,7 +6,7 @@ import argparse
 import multiprocessing
 import base64
 
-from ibm_cloud_sdk_core.authenticators.iam_authenticator import IAMAuthenticator
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_secrets_manager_sdk.secrets_manager_v1 import *
 
 
