@@ -90,7 +90,7 @@ variable "ml_plan" {
 variable "create_ws" {
   description = "If set to true, it will create watson"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "ws_plan" {
