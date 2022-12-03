@@ -115,7 +115,7 @@ def notify_slack_channel(access_token, slack_message):
             print("Secrets Manager failed to get secret for kv "+ KV_SECRET_ID +".")
 
 
-def task(access_token, refresh_token, workspace_id, workspace_name, job_index, apikey):
+def task(access_token, refresh_token, workspace_id, workspace_name, job_index):
     job_file = "/tmp/.schematics/job_info_" + str(job_index) + ".json"
     # Get schematics workspace details
     while True:
