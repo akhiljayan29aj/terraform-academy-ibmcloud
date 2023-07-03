@@ -4,7 +4,7 @@
 #####################################################
 
 resource "ibm_resource_group" "rg" {
-  name = "${var.course_prefix}-RG"
+  name = "default"
 }
 
 // Create schematics_workspace resource
@@ -13,7 +13,7 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_1" {
 
   location         = var.schematics_workspace_location
   name             = "${var.course_prefix}-b1-${each.key}"
-  resource_group   = "${var.course_prefix}-RG"
+  resource_group   = "default"
   template_type    = "terraform_v1.0"
   template_git_url = var.schematics_workspace_template_repo
 
