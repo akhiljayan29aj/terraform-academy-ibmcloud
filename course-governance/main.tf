@@ -3,6 +3,10 @@
 # Copyright 2022 IBM
 #####################################################
 
+data "ibm_resource_group" "rg" {
+  name = "default"
+}
+
 // Create schematics_workspace resource
 resource "ibm_schematics_workspace" "schematics_workspace_instance_1" {
   for_each = { for i, v in local.workspace_batch_list[0] : i => v }
@@ -22,7 +26,7 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_1" {
   template_inputs {
     name  = "course_resource_group_id"
     type  = "string"
-    value = ibm_resource_group.rg.id
+    value = data.ibm_resource_group.rg.id
   }
 
   template_inputs {
@@ -143,7 +147,7 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_2" {
   template_inputs {
     name  = "course_resource_group_id"
     type  = "string"
-    value = ibm_resource_group.rg.id
+    value = data.ibm_resource_group.rg.id
   }
 
   template_inputs {
@@ -266,7 +270,7 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_3" {
   template_inputs {
     name  = "course_resource_group_id"
     type  = "string"
-    value = ibm_resource_group.rg.id
+    value = data.ibm_resource_group.rg.id
   }
 
   template_inputs {
@@ -389,7 +393,7 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_4" {
   template_inputs {
     name  = "course_resource_group_id"
     type  = "string"
-    value = ibm_resource_group.rg.id
+    value = data.ibm_resource_group.rg.id
   }
 
   template_inputs {
@@ -512,7 +516,7 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_5" {
   template_inputs {
     name  = "course_resource_group_id"
     type  = "string"
-    value = ibm_resource_group.rg.id
+    value = data.ibm_resource_group.rg.id
   }
 
   template_inputs {
