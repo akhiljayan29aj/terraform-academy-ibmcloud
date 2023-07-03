@@ -5,7 +5,7 @@
 
 resource "ibm_function_namespace" "namespace" {
   name              = var.namespace
-  resource_group_id = ibm_resource_group.rg.id
+  resource_group_id = data.ibm_resource_group.rg.id
 }
 
 resource "ibm_function_action" "action" {
