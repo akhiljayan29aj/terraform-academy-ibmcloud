@@ -3,10 +3,6 @@
 # Copyright 2022 IBM
 #####################################################
 
-resource "ibm_resource_group" "rg" {
-  name = "default"
-}
-
 // Create schematics_workspace resource
 resource "ibm_schematics_workspace" "schematics_workspace_instance_1" {
   for_each = { for i, v in local.workspace_batch_list[0] : i => v }
