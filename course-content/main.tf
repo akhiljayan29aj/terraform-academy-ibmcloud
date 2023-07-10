@@ -6,7 +6,7 @@
 # IAM 
 
 module "course-setup" {
-  source = "github.com/akhiljayan29aj/terraform-academy-ibmcloud/tree/main/course-setup"
+  source = "github.com/akhiljayan29aj/terraform-academy-ibmcloud//course-setup?ref=main"
 
   course_resource_group_id = var.course_resource_group_id
   accgrp_name              = "${var.course_prefix}-AG"
