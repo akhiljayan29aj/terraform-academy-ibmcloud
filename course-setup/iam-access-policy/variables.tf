@@ -52,6 +52,14 @@ variable "create_ws" {
   default     = false
 }
 
+# COS
+
+variable "create_cos" {
+  description = "If set to true, it will create watson"
+  type        = bool
+  default     = false
+}
+
 # Virtual Server for VPC
 
 variable "create_vsi" {

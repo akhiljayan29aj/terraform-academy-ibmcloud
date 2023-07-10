@@ -58,6 +58,17 @@ resource "ibm_iam_access_group_policy" "iotf-policy" {
   }
 }
 
+resource "ibm_iam_access_group_policy" "cos-policy" {
+  count           = var.create_cos ? 1 : 0
+  access_group_id = ibm_iam_access_group.accgrp.id
+  roles           = ["Editor"]
+
+  resources {
+    service           = "cloud-object-storage"
+    resource_group_id = var.resource_group_id
+  }
+}
+
 
 resource "ibm_iam_access_group_policy" "rg-policy" {
   access_group_id = ibm_iam_access_group.accgrp.id

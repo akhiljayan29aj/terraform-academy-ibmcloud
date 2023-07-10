@@ -6,7 +6,7 @@
 # IAM 
 
 module "course-setup" {
-  source = "github.com/anilkumarnagaraj/terraform-academy-ibmcloud//course-setup?ref=multi_user_account"
+  source = "github.com/akhiljayan29aj/terraform-academy-ibmcloud/tree/main/course-setup"
 
   course_resource_group_id = var.course_resource_group_id
   accgrp_name              = "${var.course_prefix}-AG"
@@ -16,6 +16,7 @@ module "course-setup" {
   create_ml                = var.create_ml
   create_ws                = var.create_ws
   create_vsi               = var.create_vsi
+  create_cos               = var.create_cos
 }
 
 # VPC
@@ -128,4 +129,14 @@ module "watson-studio" {
   location     = var.location
   ws_name      = "${var.course_prefix}-watson"
   ws_plan      = var.ws_plan
+}
+
+module "cos" {
+  source = "./cos"
+
+  count        = var.create_cos ? 1 : 0
+  course_rg_id = var.course_resource_group_id
+  location     = var.location
+  cos_name      = var.cos_name
+  cos_plan      = var.cos_plan
 }

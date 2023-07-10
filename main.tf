@@ -18,6 +18,8 @@ module "course_governance" {
   ml_plan           = var.ml_plan
   create_ws         = var.create_ws
   ws_plan           = var.ws_plan
+  create_cos        = var.create_cos
+  cos_plan          = var.cos_plan
   create_vsi        = var.create_vsi
   image             = var.image
   profile           = var.profile

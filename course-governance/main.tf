@@ -96,6 +96,18 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_1" {
   }
 
   template_inputs {
+    name  = "create_cos"
+    type  = "bool"
+    value = var.create_cos
+  }
+
+  template_inputs {
+    name  = "cos_plan"
+    type  = "string"
+    value = var.cos_plan
+  }
+
+  template_inputs {
     name  = "create_vsi"
     type  = "bool"
     value = var.create_vsi
@@ -214,6 +226,18 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_2" {
     name  = "ws_plan"
     type  = "string"
     value = var.ws_plan
+  }
+
+  template_inputs {
+    name  = "create_cos"
+    type  = "bool"
+    value = var.create_cos
+  }
+
+  template_inputs {
+    name  = "cos_plan"
+    type  = "string"
+    value = var.cos_plan
   }
 
   template_inputs {
@@ -340,6 +364,18 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_3" {
   }
 
   template_inputs {
+    name  = "create_cos"
+    type  = "bool"
+    value = var.create_cos
+  }
+
+  template_inputs {
+    name  = "cos_plan"
+    type  = "string"
+    value = var.cos_plan
+  }
+
+  template_inputs {
     name  = "create_vsi"
     type  = "bool"
     value = var.create_vsi
@@ -463,6 +499,18 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_4" {
   }
 
   template_inputs {
+    name  = "create_cos"
+    type  = "bool"
+    value = var.create_cos
+  }
+
+  template_inputs {
+    name  = "cos_plan"
+    type  = "string"
+    value = var.cos_plan
+  }
+
+  template_inputs {
     name  = "create_vsi"
     type  = "bool"
     value = var.create_vsi
@@ -583,6 +631,18 @@ resource "ibm_schematics_workspace" "schematics_workspace_instance_5" {
     name  = "ws_plan"
     type  = "string"
     value = var.ws_plan
+  }
+
+  template_inputs {
+    name  = "create_cos"
+    type  = "bool"
+    value = var.create_cos
+  }
+
+  template_inputs {
+    name  = "cos_plan"
+    type  = "string"
+    value = var.cos_plan
   }
 
   template_inputs {

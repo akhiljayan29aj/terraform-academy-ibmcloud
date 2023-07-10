@@ -37,7 +37,7 @@ variable "schematics_workspace_name" {
 variable "schematics_workspace_template_repo" {
   description = "Template repo to provision the cloud resource."
   type        = string
-  default     = "https://github.com/anilkumarnagaraj/terraform-academy-ibmcloud/tree/multi_user_account/course-content"
+  default     = "https://github.com/akhiljayan29aj/terraform-academy-ibmcloud/tree/main/course-content"
 }
 
 variable "user_list" {
@@ -142,6 +142,18 @@ variable "ws_plan" {
   description = "Watson Studio service instance Plan"
   type        = string
   default     = "professional-v1" # Other supported plan 'free-v1'.
+}
+
+variable "create_cos" {
+  description = "If set to true, it will create cos bucket"
+  type        = bool
+  default     = false
+}
+
+variable "cos_plan" {
+  description = "COS Bucket instance Plan"
+  type        = string
+  default     = "lite"
 }
 
 #####################################################

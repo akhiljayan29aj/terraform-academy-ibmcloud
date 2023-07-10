@@ -25,8 +25,8 @@ variable "user_list" {
 
   default = [
     {
-      name   = "karan"
-      email  = "karan.kumar6@ibm.com"
+      name   = "akhil"
+      email  = "akhil.jayan1@ibm.com"
       apikey = "apikey-1"
     },
   ]
@@ -97,6 +97,20 @@ variable "ws_plan" {
   description = "Watson Studio service instance Plan"
   type        = string
   default     = "professional-v1" # Other supported plan 'free-v1'.
+}
+
+# COS
+
+variable "create_cos" {
+  description = "If set to true, it will create cos bucket"
+  type        = bool
+  default     = false
+}
+
+variable "cos_plan" {
+  description = "COS Bucket instance Plan"
+  type        = string
+  default     = "lite"
 }
 
 # Virtual Server for VPC

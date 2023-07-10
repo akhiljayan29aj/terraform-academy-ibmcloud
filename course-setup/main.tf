@@ -13,5 +13,6 @@ module "iam_policy" {
   create_iot        = var.create_iot
   create_ml         = var.create_ml
   create_ws         = var.create_ws
+  create_cos         = var.create_cos
   create_vsi        = var.create_vsi
 }

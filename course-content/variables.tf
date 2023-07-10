@@ -64,6 +64,12 @@ variable "create_ws" {
   default     = false
 }
 
+variable "create_cos" {
+  description = "If set to true, it will create COS Bucket"
+  type        = bool
+  default     = false
+}
+
 # Watson Studio - https://cloud.ibm.com/catalog/services/watson-studio
 variable "ws_name" {
   description = "Watson Studio service instance name"
@@ -114,6 +120,18 @@ variable "iot_plan" {
   description = "IOT Platform service Plan"
   type        = string
   default     = "iotf-service-free"
+}
+
+variable "cos_name" {
+  description = "COS instance name"
+  type        = string
+  default     = "tf-academy-training-cos-service"
+}
+
+variable "cos_plan" {
+  description = "COS Bucket instance Plan"
+  type        = string
+  default     = "lite"
 }
 
 #####################################################
