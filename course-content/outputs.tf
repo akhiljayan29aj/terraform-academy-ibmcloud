@@ -35,5 +35,5 @@ output "vpc_id" {
 
 output "subnet_ids" {
   description = "The IDs of the subnets"
-  value       = var.create_vsi ? module.vpc.subnet_ids : []
+  value       = var.create_vsi ? module.vpc-mod.*.subnetids : []
 }

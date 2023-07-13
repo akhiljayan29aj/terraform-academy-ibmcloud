@@ -68,3 +68,9 @@ output "vpcid" {
   description = "VPC ID"
   sensitive   = false
 }
+
+output "subnetids" {
+  value       = module.vpc.subnet_ids
+  description = "SUBNET IDs"
+  sensitive   = false
+}
