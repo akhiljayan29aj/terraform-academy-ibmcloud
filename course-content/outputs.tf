@@ -30,7 +30,7 @@ output "watson-studio-dashboard-url" {
 
 output "vpc_id" {
   description = "The ID of the vpc"
-  value       = var.create_vsi ? concat(module.vpc.vpc_id, [""])[0] : ""
+  value       = var.create_vsi ? concat(module.vpc-mod.*.vpcid, [""])[0] : ""
 }
 
 output "subnet_ids" {

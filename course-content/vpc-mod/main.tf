@@ -61,3 +61,10 @@ module "vsi" {
   ssh_keys                  = var.create_vsi ? [ibm_is_ssh_key.vpc_ssh[0].id] : null
   primary_network_interface = local.primary_network_interface
 }
+
+
+output "vpcid" {
+  value       = module.vpc.vpc_id
+  description = "VPC ID"
+  sensitive   = false
+}
